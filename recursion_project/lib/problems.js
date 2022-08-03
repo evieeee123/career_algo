@@ -82,7 +82,7 @@ function pow(base, exponent) {
     }
 
     if (exponent < 0){
-        return base  pow(base, exponent+1);
+        return (1 / base) *  pow(base, exponent+1);
     }
 }
 
