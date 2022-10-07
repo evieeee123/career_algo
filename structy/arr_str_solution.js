@@ -101,4 +101,148 @@ const compress = (s) => {
 
 
 
+// anagrams
+// n = length of string 1
+// m = length of string 2
+// Time: O(n + m)
+// Space: O(n)
+
+// way 1
+const anagrams = (s1, s2) => {
+    const count = {};
+    for (let char of s1) {
+        if (!(char in count)) {
+            count[char] = 0;
+        }
+        count[char] += 1;
+    }
+
+    for (let char of s2) {
+        if (count[char] === undefined) {
+            return false;
+        } else {
+            count[char] -= 1;
+        }
+    }
+
+    for (let char in count) {
+        if (count[char] !== 0) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+// way 2
+// const anagrams = (s1, s2) => {
+//     let hash = {};
+//     if (s1.length !== s2.length) return false;
+//     for (let i = 0; i < s1.length; i++) {
+//         if (!hash[s1[i]]) hash[s1[i]] = 1
+//         else hash[s1[i]]++
+//     }
+//     for (let i = 0; i < s2.length; i++) {
+//         if (hash[s2[i]]) hash[s2[i]]--;
+//         else return false;
+//     }
+//     for (let key in hash) {
+//         if (hash[key] !== 0) return false;
+//     }
+//     return true
+// };
+
+
+
+
+// most frequent char
+// n = length of string
+// Time: O(n)
+// Space: O(n)
+// using hashmap(object)
+
+// way 1
+const mostFrequentChar = (s) => {
+    const count = {};
+
+    for (let char of s) {
+        if (!(char in count)) {
+            count[char] = 0;
+        }
+        count[char] += 1
+    }
+
+    let best = null;
+    for (let char of s) {
+        if (best === null || count[char] > count[best]) {
+            best = char;
+        }
+    }
+    return best;
+};
+
+// way 2
+// const mostFrequentChar = (s) => {
+//     let hash = {};
+//     for (let char of s) {
+//         if (!hash[char]) hash[char] = 1
+//         else hash[char]++
+//     }
+//     let curr = s[0]
+//     for (let char of s) {
+//         if (hash[char] > hash[curr]) {
+//             curr = char
+//         }
+//     }
+//     return curr
+// };
+
+
+
+
+// pair sum
+// n = length of array
+// Time: O(n)
+// Space: O(n)
+// using a hashmap(object)
+
+// way 1
+const pairSum = (numbers, targetSum) => {
+    let hash = {}
+    for (let i = 0; i < numbers.length; i++) {
+        if (hash[numbers[i]] === undefined) {
+            hash[targetSum - numbers[i]] = i
+        } else {
+            return [hash[numbers[i]], i]
+        }
+    }
+};
+
+// way 2
+// const pairSum = (numbers, targetSum) => {
+//     const previousNums = {};
+//     for (let i = 0; i < numbers.length; i += 1) {
+//         const num = numbers[i];
+//         const complement = targetSum - num;
+//         if (complement in previousNums) return [i, previousNums[complement]];
+
+//         previousNums[num] = i;
+//     }
+// };
+
+
+
+
+// pair product
+const pairProduct = (numbers, targetProduct) => {
+    let hash = {}
+    for (let i = 0; i < numbers.length; i++) {
+        let nums = targetProduct / numbers[i]
+        if (hash[numbers[i]] === undefined) {
+            hash[nums] = i
+        } else {
+            return [hash[numbers[i]], i]
+        }
+    }
+};
 
