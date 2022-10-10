@@ -246,3 +246,56 @@ const pairProduct = (numbers, targetProduct) => {
     }
 };
 
+
+
+// intersection
+
+// way 1 (brute force (timeout))
+// n = length of array a, m = length of array b
+// Time: O(n * m)
+// Space: O(min(n, m))
+const intersection = (a, b) => {
+    const result = [];
+    for (let item of b) {
+        if (a.includes(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};
+
+// way 2 (using set (pass))
+// n = length of array a, m = length of array b
+// Time: O(n + m)
+// Space: O(n)
+
+// const intersection = (a, b) => {
+//     const result = [];
+//     const setA = new Set(a);
+//     for (let item of b) {
+//         if (setA.has(item)) {      //set.has is O(1)
+//             result.push(item);
+//         }
+//     }
+//     return result;
+// };
+
+// ***
+// // const setA = new Set(a); => same as
+// // const setA = new Set();
+// // for (let item of a) {
+// //     setA.add(item)                     //set.add is O(1)
+// // }
+
+// way 3 (using hashmap)
+// const intersection = (a, b) => {
+//     let hash = {};
+//     let res = [];
+//     for (let num of a) {
+//         if (!hash[num]) hash[num] = 1;
+//     }
+//     for (let num of b) {
+//         if (hash[num]) res.push(num)
+//     }
+//     return res
+// };
