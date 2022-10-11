@@ -157,3 +157,172 @@ const longestStreak = (head) => {
 
 //     return maxStreak;
 // };
+
+
+
+// remove node
+
+// way 1 (iterative)
+// n = number of nodes
+// Time: O(n)
+// Space: O(1)
+const removeNode = (head, targetVal) => {
+    if (head.val === targetVal) return head.next
+    let prev = null;
+    let curr = head;
+
+    while (curr !== null) {
+        if (curr.val === targetVal) {
+            prev.next = curr.next;
+            break;
+        }
+
+        prev = curr;
+        curr = curr.next
+    }
+    return head
+};
+
+// way 2 (recursive)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+// const removeNode = (head, targetVal) => {
+//     if (head === null) return null;
+//     if (head.val === targetVal) return head.next;
+//     head.next = removeNode(head.next, targetVal);
+//     return head;
+// };
+
+
+
+
+// insert node
+
+// way 1 (iterative)
+// n = number of nodes
+// Time: O(n)
+// Space: O(1)
+
+const insertNode = (head, value, index) => {
+    if (index === 0) {
+        const newHead = new Node(value);
+        newHead.next = head;
+        return newHead;
+    }
+
+    let count = 0;
+    let current = head;
+    while (current !== null) {
+        if (count === index - 1) {
+            const next = current.next;
+            current.next = new Node(value);
+            current.next.next = next;
+        }
+
+        count += 1;
+        current = current.next;
+    }
+    return head;
+};
+
+// way 2 (iterative)
+// n = number of nodes
+// Time: O(n)
+// Space: O(1)
+
+// const insertNode = (head, value, index) => {
+//     if (index === 0) {
+//         let newHead = new Node(value);
+//         newHead.next = head;
+//         return newHead
+//     }
+//     let prev = null;
+//     let curr = head;
+//     let count = 0;
+
+//     while (curr !== null) {
+//         if (count === index) {
+
+//             let newNode = new Node(value);
+//             prev.next = newNode;
+//             newNode.next = curr;
+
+//         }
+//         prev = curr;
+//         curr = curr.next;
+//         count++;
+//     }
+//     if (curr === null && count === index) prev.next = new Node(value)
+
+//     return head;
+// };
+
+// way 3 (recursive)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+
+// const insertNode = (head, value, index, count = 0) => {
+//     if (index === 0) {
+//         const newHead = new Node(value);
+//         newHead.next = head;
+//         return newHead;
+//     }
+
+//     if (count === index - 1) {
+//         const next = head.next;
+//         head.next = new Node(value);
+//         head.next.next = next;
+//         return head;
+//     }
+
+//     insertNode(head.next, value, index, count + 1);
+//     return head;
+// };
+
+
+
+
+// create linked list
+
+// way 1 (iterative)
+// n = length of values
+// Time: O(n)
+// Space: O(n)
+const createLinkedList = (values) => {
+    const dummyHead = new Node(null);
+    let tail = dummyHead;
+    for (let val of values) {
+        tail.next = new Node(val);
+        tail = tail.next;
+    }
+    return dummyHead.next;
+};
+
+// way 2 (iterative)
+// const createLinkedList = (values) => {
+//     if (values.length === 0) return null;
+//     let head = new Node(values[0]);
+//     let curr = head;
+//     let i = 1;
+//     while (i < values.length) {
+//         curr.next = new Node(values[i]);
+//         curr = curr.next;
+//         i++;
+//     }
+//     return head
+// };
+
+// way 3 (recursive)
+// n = length of values
+// Time: O(n)
+// Space: O(n)
+
+// const createLinkedList = (values, i = 0) => {
+//     if (i === values.length) return null;
+//     const head = new Node(values[i]);
+//     head.next = createLinkedList(values, i + 1);
+//     return head;
+// };
+
