@@ -174,3 +174,108 @@ const bottomRightValue = (root) => {
 //     }
 // };
 
+
+
+
+// all tree paths
+// n = number of nodes
+// Time: ~O(n)
+// Space: ~O(n)
+// recursive
+const allTreePaths = (root) => {
+    if (root === null) return [];
+
+    if (root.left === null && root.right === null) return [[root.val]]
+
+    const paths = [];
+
+    const leftSubPaths = allTreePaths(root.left);
+    for (let subPath of leftSubPaths) {
+        paths.push([root.val, ...subPath]);
+    }
+
+    const rightSubPaths = allTreePaths(root.right);
+    for (let subPath of rightSubPaths) {
+        paths.push([root.val, ...subPath]);
+    }
+
+    return paths;
+};
+
+
+
+
+// tree levels
+
+// way 1 (depth first (iterative))
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const treeLevels = (root) => {
+    if (root === null) return [];
+    const levels = [];
+
+    const stack = [{ node: root, levelNum: 0 }];
+
+    while (stack.length > 0) {
+        const { node, levelNum } = stack.pop();
+
+        if (levels.length === levelNum) {
+            levels.push([node.val]);
+        } else {
+            levels[levelNum].push(node.val)
+        }
+
+        if (node.right !== null) stack.push({ node: node.right, levelNum: levelNum + 1 });
+        if (node.left !== null) stack.push({ node: node.left, levelNum: levelNum + 1 });
+    }
+
+    return levels
+};
+
+// way 2 (breadth first (iterative))
+
+// const treeLevels = (root) => {
+//     if (root === null) return [];
+
+//     const levels = [];
+//     const queue = [{ node: root, levelNum: 0 }];
+//     while (queue.length > 0) {
+//         const { node, levelNum } = queue.shift();
+
+//         if (levels.length === levelNum) {
+//             levels[levelNum] = [node.val];
+//         } else {
+//             levels[levelNum].push(node.val);
+//         }
+
+//         if (node.left !== null) queue.push({ node: node.left, levelNum: levelNum + 1 });
+//         if (node.right !== null) queue.push({ node: node.right, levelNum: levelNum + 1 });
+//     }
+
+//     return levels;
+// };
+
+// way 3 (depth first (recursive))
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+
+// const treeLevels = (root) => {
+//     const levels = [];
+//     _treeLevels(root, levels, 0);
+//     return levels;
+// };
+
+// const _treeLevels = (root, levels, levelNum) => {
+//     if (root === null) return;
+
+//     if (levels.length === levelNum) {
+//         levels[levelNum] = [root.val];
+//     } else {
+//         levels[levelNum].push(root.val);
+//     }
+
+//     _treeLevels(root.left, levels, levelNum + 1);
+//     _treeLevels(root.right, levels, levelNum + 1);
+// };
