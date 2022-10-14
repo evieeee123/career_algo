@@ -233,3 +233,94 @@ const traverseIsland = (grid, row, col, visited) => {
 
     return visited;
 };
+
+
+
+
+// has cycle
+
+// white-grey-black algorithm
+// n = number of nodes
+// Time: O(n ^ 2)
+// Space: O(n)
+const hasCycle = (graph) => {
+    const visited = new Set();
+    for (let startNode in graph) {
+        if (cycleDetect(graph, startNode, new Set(), visited)) return true;
+    }
+    return false;
+};
+
+const cycleDetect = (graph, node, visiting, visited) => {
+    if (visited.has(node)) return false;
+
+    if (visiting.has(node)) return true;
+
+    visiting.add(node);
+
+    for (let neighbor of graph[node]) {
+        if (cycleDetect(graph, neighbor, visiting, visited)) return true;
+    }
+
+    visiting.delete(node);
+    visited.add(node);
+    return false;
+};
+
+
+
+
+// prereqs possible
+
+// white - grey - black cycle detection algorithm
+// p = # prereqs
+// n = # courses
+// Time: O(n + p)
+// Space: O(n)
+const prereqsPossible = (numCourses, prereqs) => {
+    const visiting = new Set();
+    const visited = new Set();
+
+    const graph = buildGraph1(numCourses, prereqs);
+    for (let node in graph) {
+        if (hasCycle1(graph, node, visiting, visited)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+const hasCycle1 = (graph, node, visiting, visited) => {
+    if (visited.has(node)) return false;
+
+    if (visiting.has(node)) return true;
+
+    visiting.add(node);
+
+    for (let neighbor of graph[node]) {
+        if (hasCycle1(graph, neighbor, visiting, visited)) {
+            return true;
+        }
+    }
+
+    visiting.delete(node);
+    visited.add(node);
+
+    return false;
+};
+
+const buildGraph1 = (numCourses, prereqs) => {
+    const graph = {};
+
+    for (let i = 0; i < numCourses; i += 1) {
+        graph[i] = [];
+    }
+
+    for (let prereq of prereqs) {
+        const [a, b] = prereq;
+        graph[a].push(String(b));
+    }
+
+    return graph;
+};

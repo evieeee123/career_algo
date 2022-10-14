@@ -213,7 +213,7 @@
             // ["W", "W", "W", "W", "W"],
         // ];
         // bestBridge(grid); // -> 1
-        
+
     // test_01:
         // const grid = [
             // ["W", "W", "W", "W", "W"],
@@ -224,7 +224,7 @@
             // ["W", "W", "W", "W", "W"],
         // ];
         // bestBridge(grid); // -> 2
-        
+
     // test_02:
         // const grid = [
             // ["W", "W", "W", "W", "W"],
@@ -232,7 +232,7 @@
             // ["L", "W", "W", "W", "W"],
         // ];
         // bestBridge(grid); // -> 3
-        
+
     // test_03:
         // const grid = [
             // ["W", "W", "W", "W", "W", "W", "W", "W"],
@@ -247,7 +247,7 @@
             // ["W", "W", "W", "W", "W", "W", "W", "W"],
         // ];
         // bestBridge(grid); // -> 3
-        
+
     // test_04:
         // const grid = [
             // ["L", "L", "L", "L", "L", "L", "L", "L"],
@@ -264,7 +264,7 @@
             // ["L", "L", "L", "L", "L", "L", "L", "L"],
         // ];
         // bestBridge(grid); // -> 2
-        
+
     // test_05:
         // const grid = [
             // ["W", "L", "W", "W", "W", "W", "W", "W"],
@@ -277,3 +277,145 @@
             // ["W", "W", "W", "W", "W", "W", "W", "L"],
         // ];
         // bestBridge(grid); // -> 8
+
+
+
+
+// has cycle
+
+    // Write a function, hasCycle, that takes in an object representing the adjacency list of a directed graph.The function should return a boolean indicating whether or not the graph contains a cycle.
+
+    // test_00:
+        // hasCycle({
+            // a: ["b"],
+            // b: ["c"],
+            // c: ["a"],
+        // }); // -> true
+
+    // test_01:
+        // hasCycle({
+            // a: ["b", "c"],
+            // b: ["c"],
+            // c: ["d"],
+            // d: [],
+        // }); // -> false
+
+    // test_02:
+        // hasCycle({
+            // a: ["b", "c"],
+            // b: [],
+            // c: [],
+            // e: ["f"],
+            // f: ["e"],
+        // }); // -> true
+
+    // test_03:
+        // hasCycle({
+            // q: ["r", "s"],
+            // r: ["t", "u"],
+            // s: [],
+            // t: [],
+            // u: [],
+            // v: ["w"],
+            // w: [],
+            // x: ["w"],
+        // }); // -> false
+
+    // test_04:
+        // hasCycle({
+            // a: ["b"],
+            // b: ["c"],
+            // c: ["a"],
+            // g: [],
+        // }); // -> true
+
+    // test_05:
+        // hasCycle({
+            // a: ["b"],
+            // b: ["c"],
+            // c: ["d"],
+            // d: ["b"],
+        // }); // -> true
+
+
+
+
+
+// prereqs possible
+
+    // Write a function, prereqsPossible, that takes in a number of courses(n) and prerequisites as arguments.Courses have ids ranging from 0 through n - 1. A single prerequisite of[A, B] means that course A must be taken before course B.The function should return a boolean indicating whether or not it is possible to complete all courses.
+
+    // test_00:
+        // const numCourses = 6;
+        // const prereqs = [
+            // [0, 1],
+            // [2, 3],
+            // [0, 2],
+            // [1, 3],
+            // [4, 5],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> true
+        
+    // test_01:
+        // const numCourses = 6;
+        // const prereqs = [
+            // [0, 1],
+            // [2, 3],
+            // [0, 2],
+            // [1, 3],
+            // [4, 5],
+            // [3, 0],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> false
+        
+    // test_02:
+        // const numCourses = 5;
+        // const prereqs = [
+            // [2, 4],
+            // [1, 0],
+            // [0, 2],
+            // [0, 4],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> true
+        
+    // test_03:
+        // const numCourses = 6;
+        // const prereqs = [
+            // [2, 4],
+            // [1, 0],
+            // [0, 2],
+            // [0, 4],
+            // [5, 3],
+            // [3, 5],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> false
+        
+    // test_04:
+        // const numCourses = 8;
+        // const prereqs = [
+            // [1, 0],
+            // [0, 6],
+            // [2, 0],
+            // [0, 5],
+            // [3, 7],
+            // [4, 3],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> true
+        
+    // test_05:
+        // const numCourses = 8;
+        // const prereqs = [
+            // [1, 0],
+            // [0, 6],
+            // [2, 0],
+            // [0, 5],
+            // [3, 7],
+            // [7, 4],
+            // [4, 3],
+        // ];
+        // prereqsPossible(numCourses, prereqs); // -> false
+        
+    // test_06:
+        // const numCourses = 42;
+        // const prereqs = [[6, 36]];
+        // prereqsPossible(numCourses, prereqs); // -> true
