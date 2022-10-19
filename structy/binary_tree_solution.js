@@ -279,3 +279,117 @@ const treeLevels = (root) => {
 //     _treeLevels(root.left, levels, levelNum + 1);
 //     _treeLevels(root.right, levels, levelNum + 1);
 // };
+
+
+
+
+
+// level averages
+
+// way 1 (iterative: DFS - stack)
+const levelAverages = (root) => {
+    if (root === null) return [];
+    const levels = [];
+
+    const stack = [{ node: root, levelNum: 0 }];
+
+    while (stack.length > 0) {
+        const { node, levelNum } = stack.pop();
+
+        if (levels.length === levelNum) {
+            levels.push([node.val]);
+        } else {
+            levels[levelNum].push(node.val)
+        }
+
+        if (node.right !== null) stack.push({ node: node.right, levelNum: levelNum + 1 });
+        if (node.left !== null) stack.push({ node: node.left, levelNum: levelNum + 1 });
+    }
+
+    return levels.map(avg);
+};
+
+const avg = (arr) => {
+    let sum = 0;
+    for (let num of arr) {
+        sum += num
+    }
+    return sum / arr.length;
+}
+
+// way 2 (recursive)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+
+// const levelAverages = (root) => {
+//     const levels = [];
+//     fillLevels(root, levels, 0);
+
+//     const avgs = [];
+//     for (let level of levels) {
+//         avgs.push(avg(level));
+//     }
+//     return avgs;
+// };
+
+// const fillLevels = (root, levels, levelNum) => {
+//     if (root === null) return;
+
+//     if (levels.length === levelNum) {
+//         levels[levelNum] = [root.val];
+//     } else {
+//         levels[levelNum].push(root.val);
+//     }
+
+//     fillLevels(root.left, levels, levelNum + 1);
+//     fillLevels(root.right, levels, levelNum + 1);
+// };
+
+// const avg = (array) => {
+//     let sum = 0;
+//     for (let num of array) {
+//         sum += num;
+//     }
+//     return sum / array.length;
+// };
+
+
+
+// leaf list
+
+// way 1 (depth first (iterative))
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const leafList = (root) => {
+    if (root === null) return [];
+    const leaves = [];
+    const stack = [root];
+    while (stack.length) {
+        const current = stack.pop();
+        if (current.left === null && current.right === null) leaves.push(current.val);
+
+        if (current.right !== null) stack.push(current.right);
+        if (current.left !== null) stack.push(current.left);
+    }
+    return leaves;
+};
+
+// way 2 (depth first (recursive))
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+
+// const leafList = (root) => {
+//     const leaves = [];
+//     fillLeaves(root, leaves);
+//     return leaves;
+// };
+
+// const fillLeaves = (root, leaves) => {
+//     if (root === null) return;
+//     if (root.left === null && root.right === null) leaves.push(root.val);
+//     fillLeaves(root.left, leaves);
+//     fillLeaves(root.right, leaves);
+// };
