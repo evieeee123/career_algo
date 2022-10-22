@@ -1,4 +1,4 @@
-// linked palindrome
+// 1. linked palindrome
 
 // n = number of nodes
 // Time: O(n)
@@ -18,7 +18,7 @@ const linkedPalindrome = (head) => {
 
 
 
-// middle value
+// 2. middle value
 
 // way 1 (using an array)
 // n = number of nodes
@@ -56,7 +56,7 @@ const middleValue = (head) => {
 
 
 
-// linked list cycle
+// 3. linked list cycle
 
 // way 1 (using a set)
 // n = number of nodes
@@ -99,7 +99,7 @@ const linkedListCycle = (head) => {
 
 
 
-// lowest common ancestor
+// 4. lowest common ancestor
 
 // depth first path
 // n = number of nodes
@@ -133,4 +133,136 @@ const findPath = (root, targetVal) => {
     }
 
     return null;
+};
+
+
+
+
+// 5. flip tree
+
+// way 1(recursive)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const flipTree = (root) => {
+    if (root === null) return null;
+    const left = flipTree(root.left);
+    const right = flipTree(root.right);
+    root.right = left;
+    root.left = right;
+    return root;
+};
+
+
+
+
+// 6. lefty nodes
+
+// way 1 (depth first)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const leftyNodes = (root) => {
+    const values = [];
+
+    const traverse = (node, level) => {
+        if (node === null) return;
+
+        if (values[level] === undefined) values.push(node.val);
+
+        traverse(node.left, level + 1);
+        traverse(node.right, level + 1);
+    };
+
+    traverse(root, 0);
+    return values;
+};
+
+
+
+
+
+//  7. can color
+
+// way 1 (depth first recursive)
+// n = number of nodes
+// Time: O(n ^ 2)
+// Space: O(n)
+const canColor = (graph) => {
+    const coloring = {};
+
+    for (let node in graph) {
+        if (!(node in coloring)) {
+            if (!valid(graph, node, coloring, false)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+};
+
+const valid = (graph, node, coloring, currentColor) => {
+    if (node in coloring) return currentColor === coloring[node];
+
+    coloring[node] = currentColor;
+
+    for (let neighbor of graph[node]) {
+        if (!valid(graph, neighbor, coloring, !currentColor)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+
+
+
+
+// 8. tolerant teams
+
+// way 1 (depth first coloring)
+// e = number of rivalries
+// n = number of people
+// Time: O(e)
+// Space: O(n)
+const tolerantTeams = (rivalries) => {
+    const graph = buildGraph(rivalries);
+
+    const coloring = {};
+    for (let node in graph) {
+        if (!(node in coloring) && !isBipartite(graph, node, coloring, false)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+const isBipartite = (graph, node, coloring, currentColor) => {
+    if (node in coloring) return coloring[node] === currentColor;
+
+    coloring[node] = currentColor;
+
+    for (let neighbor of graph[node]) {
+        if (!isBipartite(graph, neighbor, coloring, !currentColor)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+const buildGraph = (rivalries) => {
+    const graph = {};
+    for (let pair of rivalries) {
+        const [a, b] = pair;
+        if (!(a in graph)) graph[a] = [];
+        if (!(b in graph)) graph[b] = [];
+        graph[a].push(b);
+        graph[b].push(a);
+    };
+
+    return graph;
 };
