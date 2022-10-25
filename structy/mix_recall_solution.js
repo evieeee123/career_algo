@@ -266,3 +266,203 @@ const buildGraph = (rivalries) => {
 
     return graph;
 };
+
+
+
+
+// 9. rare routing
+
+// way 1 (depth first recursive)
+// n = number of nodes
+// Time: O(n ^ 2)
+// Space: O(n)
+const rareRouting = (n, roads) => {
+    const graph = makeGraph(n, roads);
+    const visited = new Set();
+    const valid = validate(graph, '0', visited, null);
+    return valid && visited.size === n;
+};
+
+const validate = (graph, node, visited, lastNode) => {
+    if (visited.has(node)) return false;
+
+    visited.add(node);
+
+    for (let neighbor of graph[node]) {
+        if (neighbor !== lastNode) {
+            if (!validate(graph, neighbor, visited, node)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+};
+
+const makeGraph = (n, roads) => {
+    const graph = {};
+    for (let city = 0; city < n; city += 1) {
+        graph[city] = [];
+    }
+
+    for (let road of roads) {
+        const [a, b] = road;
+        graph[a].push(String(b));
+        graph[b].push(String(a));
+    }
+
+    return graph;
+};
+
+
+
+
+// 10. max increasing subseq
+
+// way 1 (dynamic programming with memoization)
+// n = length of array
+// Time: O(n ^ 2)
+// Space: O(n ^ 2)
+const maxIncreasingSubseq = (numbers, i = 0, previous = -Infinity, memo = {}) => {
+    const key = i + ',' + previous;
+    if (key in memo) return memo[key];
+    if (i === numbers.length) return 0;
+
+    const options = [];
+    const dontTakeCurrent = maxIncreasingSubseq(numbers, i + 1, previous, memo);
+    options.push(dontTakeCurrent);
+
+    const current = numbers[i];
+    if (current > previous) {
+        const takeCurrent = 1 + maxIncreasingSubseq(numbers, i + 1, current, memo);
+        options.push(takeCurrent);
+    }
+
+    memo[key] = Math.max(...options);
+    return memo[key];
+};
+
+
+
+
+
+// 11. positioning plants
+
+// way 1 (dynamic programming with memoization)
+// n = # of garden positions(rows)
+// m = # of plant types(columns)
+// Time: O(nm)
+// Space: O(nm)
+const positioningPlants = (costs, pos = 0, lastPlant = null, memo = {}) => {
+    const key = pos + ',' + lastPlant;
+    if (key in memo) return memo[key];
+
+    if (pos === costs.length) return 0;
+
+    let min = Infinity;
+    for (let plant = 0; plant < costs[pos].length; plant += 1) {
+        if (plant !== lastPlant) {
+            const candidate = costs[pos][plant] + positioningPlants(costs, pos + 1, plant, memo);
+            min = Math.min(min, candidate);
+        }
+    }
+
+    memo[key] = min;
+    return min;
+};
+
+
+
+
+
+// 12. breaking boundaries
+
+// way 1 (dynamic programming with memoization)
+// m = # rows
+// n = # columns
+// k = # moves
+// Time: O(mnk)
+// Space: O(mnk)
+const breakingBoundaries = (m, n, k, r, c, memo = {}) => {
+    const key = `${k},${r},${c}`;
+    if (key in memo) return memo[key];
+
+    const rowInbounds = 0 <= r && r < m;
+    const colInbounds = 0 <= c && c < n;
+    if (!rowInbounds || !colInbounds) return 1;
+
+    if (k === 0) return 0;
+
+    let count = 0;
+    const deltas = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+    for (let delta of deltas) {
+        const [dRow, dCol] = delta;
+        count += breakingBoundaries(m, n, k - 1, r + dRow, c + dCol, memo);
+    }
+
+    memo[key] = count;
+    return count;      // === return memo[key]
+};
+
+
+
+
+// 13. merge sort
+
+// way 1 (merge sort)
+// n = array size
+// Time: O(nlogn)
+// Space: O(n)
+const mergeSort = (nums) => {
+    if (nums.length <= 1) return nums;
+    const mid = Math.floor(nums.length / 2);
+    const left = nums.slice(0, mid);
+    const right = nums.slice(mid);
+    const sortedLeft = mergeSort(left);
+    const sortedRight = mergeSort(right);
+    return merge(sortedLeft, sortedRight);
+};
+
+const merge = (array1, array2) => {
+    array1.reverse();
+    array2.reverse();
+    const merged = [];
+
+    while (array1.length > 0 && array2.length > 0) {
+        if (array1[array1.length - 1] < array2[array2.length - 1]) {
+            merged.push(array1.pop());
+        } else {
+            merged.push(array2.pop());
+        }
+    }
+
+    merged.push(...array1.reverse());
+    merged.push(...array2.reverse());
+
+    return merged;
+};
+
+// way 2 (no reverse)
+// const mergeSort = (nums) => {
+//     if (nums.length <= 1) return nums;
+//     let mid = Math.floor(nums.length / 2)
+//     let left = nums.slice(0, mid)
+//     let right = nums.slice(mid)
+//     let mergeLeft = mergeSort(left)
+//     let mergeRight = mergeSort(right)
+//     return merge(mergeLeft, mergeRight)
+// };
+
+// const merge = (left, right) => {
+//     let merged = [];
+//     while (left.length > 0 && right.length > 0) {
+//         if (left[0] > right[0]) {
+//             merged.push(right.shift())
+//         } else {
+//             merged.push(left.shift())
+//         }
+//     }
+//     merged.push(...left);
+//     merged.push(...right);
+//     return merged
+// }
