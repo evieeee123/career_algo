@@ -466,3 +466,113 @@ const merge = (array1, array2) => {
 //     merged.push(...right);
 //     return merged
 // }
+
+
+
+
+// 14. combine intervals
+
+// way 1 (sort and combine)
+// n = number of intervals
+// Time: O(nlogn)
+// Space: O(n)
+const combineIntervals = (intervals) => {
+    const sortedIntervals = intervals.sort((intervalA, intervalB) => intervalA[0] - intervalB[0]);
+    const combined = [intervals[0]];
+    for (let currentInterval of sortedIntervals.slice(1)) {
+        const lastInterval = combined[combined.length - 1];
+        const [lastStart, lastEnd] = lastInterval;
+        const [currentStart, currentEnd] = currentInterval;
+        if (currentStart <= lastEnd) {
+            if (currentEnd > lastEnd) {
+                lastInterval[1] = currentEnd;
+            }
+        } else {
+            combined.push(currentInterval);
+        }
+    }
+    return combined;
+};
+
+
+
+
+// 15. binary search
+
+// way 1 (binary search)
+// n = length of numbers array
+// Time: O(logn)
+// Space: O(1)
+const binarySearch = (numbers, target) => {
+    let lo = 0;
+    let hi = numbers.length - 1;
+    while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (target < numbers[mid]) {
+            hi = mid - 1;
+        } else if (target > numbers[mid]) {
+            lo = mid + 1;
+        } else {
+            return mid;
+        }
+    }
+    return -1;
+};
+
+
+
+
+// 16. binary search tree includes
+
+// way 1 (binary search)
+// n = number of nodes
+// Worst Case
+    // Time: O(n)
+    // Space: O(n)
+// Best Case(balanced - tree)
+    // Time: O(log(n))
+    // Space: O(log(n))
+const binarySearchTreeIncludes = (root, target) => {
+    if (root === null) return false;
+
+    if (root.val === target) return true;
+
+    if (target < root.val) {
+        return binarySearchTreeIncludes(root.left, target);
+    } else {
+        return binarySearchTreeIncludes(root.right, target);
+    }
+};
+
+
+
+
+// 17. is binary search tree
+
+// way 1 (in order traversal)
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const isBinarySearchTree = (root, target) => {
+    const values = [];
+    inOrderTraversal(root, values);
+    return isSorted(values);
+};
+
+const inOrderTraversal = (root, values) => {
+    if (root === null) return;
+    inOrderTraversal(root.left, values);
+    values.push(root.val);
+    inOrderTraversal(root.right, values);
+};
+
+const isSorted = (numbers) => {
+    for (let i = 0; i < numbers.length - 1; i += 1) {
+        const current = numbers[i];
+        const next = numbers[i + 1];
+        if (next < current) return false;
+    }
+
+    return true;
+};
+

@@ -979,18 +979,18 @@
     // test_00
         // // const numbers = [10, 4, 42, 5, 8, 100, 5, 6, 12, 40];
         // // mergeSort(numbers);
-       //  -> [ 4, 5, 5, 6, 8, 10, 12, 40, 42, 100 ] 
-        
+       //  -> [ 4, 5, 5, 6, 8, 10, 12, 40, 42, 100 ]
+
     // // test_01
         // // const numbers = [7, -30, -4, -1, 12, 0, 20];
         // // mergeSort(numbers);
-       //  -> [ -30, -4, -1, 0, 7, 12, 20 ] 
-        
+       //  -> [ -30, -4, -1, 0, 7, 12, 20 ]
+
     // // test_02
         // // const numbers = [8, 7, 6, 5, 4, 3, 2, 1, 0];
         // // mergeSort(numbers);
-       //  -> [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] 
-    
+       //  -> [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+
     // // test_03
         // // const numbers = [
        //      // 72, 42, 16, 81, 84, 17, 2, 81, 22, 79, 86, 38,
@@ -1004,24 +1004,339 @@
        //      // 99, 14, 42, 91
         // // ];
         // // mergeSort(numbers);
-       //  -> [ 
-       //     0,  1,  2,  4,  4,  6, 10, 12, 14, 15, 16, 17, 
-       //    17, 18, 18, 20, 20, 20, 21, 21, 22, 22, 22, 24, 
-       //    27, 28, 28, 28, 29, 31, 35, 36, 37, 37, 37, 38, 
-       //    38, 38, 39, 40, 40, 42, 42, 42, 45, 45, 49, 50, 
-       //    50, 52, 53, 56, 56, 57, 57, 57, 58, 60, 60, 61, 
-       //    63, 64, 66, 67, 67, 67, 68, 69, 70, 71, 72, 72, 
-       //    74, 74, 76, 77, 78, 79, 79, 80, 80, 81, 81, 81, 
-       //    81, 81, 82, 82, 82, 84, 86, 89, 91, 91, 92, 93, 
-       //    94, 96, 97, 99 
+       //  -> [
+       //     0,  1,  2,  4,  4,  6, 10, 12, 14, 15, 16, 17,
+       //    17, 18, 18, 20, 20, 20, 21, 21, 22, 22, 22, 24,
+       //    27, 28, 28, 28, 29, 31, 35, 36, 37, 37, 37, 38,
+       //    38, 38, 39, 40, 40, 42, 42, 42, 45, 45, 49, 50,
+       //    50, 52, 53, 56, 56, 57, 57, 57, 58, 60, 60, 61,
+       //    63, 64, 66, 67, 67, 67, 68, 69, 70, 71, 72, 72,
+       //    74, 74, 76, 77, 78, 79, 79, 80, 80, 81, 81, 81,
+       //    81, 81, 82, 82, 82, 84, 86, 89, 91, 91, 92, 93,
+       //    94, 96, 97, 99
        //  ]
-        
+
     // // test_04
         // // const numbers = new Array(95000).fill(7);
         // // mergeSort(numbers);
        //  -> [7, 7, 7, 7, 7, ...]
-        
+
     // // test_05
         // // const numbers = new Array(120000).fill(7);
         // // mergeSort(numbers);
-       //  -> [7, 7, 7, 7, 7, ...]  
+       //  -> [7, 7, 7, 7, 7, ...]
+
+
+
+
+
+// 14. combine intervals
+
+    // Write a function, combineIntervals, that takes in an array of intervals as an argument.Each interval is an array containing a pair of numbers representing a start and end time.Your function should combine overlapping intervals and return an array containing the combined intervals.
+
+    // For example:
+    // Given two intervals:
+
+    // [1, 4] and[3, 7]
+
+    // The intervals overlap and
+    // should be combined into:
+
+    // [1, 7]
+    // You may return the combined intervals in any order.
+    // You can assume that the input array contains at least one interval and all intervals are valid with start < end.
+
+    // test_00
+        // // const intervals = [
+        //     // [1, 4],
+        //     // [12, 15],
+        //     // [3, 7],
+        //     // [8, 13],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [1, 7], [8, 15] ]
+
+    // // test_01
+        // // const intervals = [
+        //     // [6, 8],
+        //     // [2, 9],
+        //     // [10, 12],
+        //     // [20, 24],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [2, 9], [10, 12], [20, 24] ]
+
+    // // test_02
+        // // const intervals = [
+        //     // [3, 7],
+        //     // [5, 8],
+        //     // [1, 5],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [1, 8] ]
+
+    // // test_03
+        // // const intervals = [
+        //     // [3, 7],
+        //     // [10, 13],
+        //     // [5, 8],
+        //     // [27, 31],
+        //     // [1, 5],
+        //     // [12, 16],
+        //     // [20, 22],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [1, 8], [10, 16], [20, 22], [27, 31] ]
+
+    // // test_04
+        // // const intervals = [
+        //     // [3, 7],
+        //     // [10, 13],
+        //     // [5, 8],
+        //     // [27, 31],
+        //     // [1, 5],
+        //     // [12, 16],
+        //     // [20, 32],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [1, 8], [10, 16], [20, 32] ]
+
+    // // test_05
+        // // const intervals = [
+        //     // [64, 70],
+        //     // [50, 55],
+        //     // [62, 65],
+        //     // [12, 50],
+        //     // [72, 300000],
+        // // ];
+        // // combineIntervals(intervals);
+        // -> [ [12, 55], [62, 70], [72, 300000] ]
+        // //
+
+
+
+
+// 15. binary search
+
+    // Write a function, binarySearch, that takes in a sorted array of numbers and a target.The function should return the index where the target can be found within the array.If the target is not found in the array, then return -1.
+    // You may assume that the input array contains unique numbers sorted in increasing order.
+    // Your function must implement the binary search algorithm.
+
+    // test_00
+        // binarySearch([0, 1, 2, 3, 4, 5, 6, 7, 8], 6); // -> 6
+    // test_01
+        // binarySearch([0, 6, 8, 12, 16, 19, 20, 24, 28], 27); // -> -1
+    // test_02
+        // binarySearch([0, 6, 8, 12, 16, 19, 20, 28], 8); // -> 2
+    // test_03
+        // binarySearch([0, 6, 8, 12, 16, 19, 20, 24, 28], 28); // -> 8
+    // test_04
+        // binarySearch([7, 9], 7); // -> 0
+    // test_05
+        // binarySearch([7, 9], 9); // -> 1
+    // test_06
+        // binarySearch([7, 9], 12); // -> -1
+    // test_07
+        // binarySearch([7], 7); // -> 0
+    // test_08
+        // binarySearch([], 7); // -> -1
+
+
+
+
+// 16. binary search tree includes
+
+    // Write a function, binarySearchTreeIncludes, that takes in the root of a binary search tree containing numbers and a target value.The function should return a boolean indicating whether or not the target is found within the tree.
+    // A Binary Search Tree is a binary tree where all values within a node's left subtree are smaller than the node's value and all values in a node's right subtree are greater than or equal to the node's value.
+    // Your solution should have a best case runtime of O(log(n)).
+
+    // tree a
+    // const a = new Node(12);
+    // const b = new Node(5);
+    // const c = new Node(18);
+    // const d = new Node(3);
+    // const e = new Node(9);
+    // const f = new Node(19);
+
+    // a.left = b;
+    // a.right = c;
+    // b.left = d;
+    // b.right = e;
+    // c.right = f;
+
+    //      12
+    //    /   \
+    //   5     18
+    //  / \     \
+    // 3   9     19
+
+    // test_00:
+        // binarySearchTreeIncludes(a, 9); // -> true
+    // test_01:
+        // binarySearchTreeIncludes(a, 15); // -> false
+    // test_02:
+        // binarySearchTreeIncludes(a, 1); // -> false
+    // test_03:
+        // binarySearchTreeIncludes(a, 12); // -> true
+        // tree q
+        // const q = new Node(54);
+        // const r = new Node(42);
+        // const s = new Node(70);
+        // const t = new Node(31);
+        // const u = new Node(50);
+        // const v = new Node(72);
+        // const w = new Node(47);
+        // const x = new Node(90);
+
+        // q.left = r;
+        // q.right = s;
+        // r.left = t;
+        // r.right = u;
+        // s.right = v;
+        // u.left = w;
+        // v.right = x;
+
+        //       54
+        //     /    \
+        //    42     70
+        //   / \      \
+        // 31   50     72
+        //     /        \
+        //    47         90
+
+    // test_04:
+        // binarySearchTreeIncludes(q, 55); // -> false
+    // test_05:
+        // binarySearchTreeIncludes(q, 47); // -> true
+    // test_06:
+        // binarySearchTreeIncludes(q, 49); // -> false
+    // test_07:
+        // binarySearchTreeIncludes(q, 70); // -> true
+    // test_08:
+        // binarySearchTreeIncludes(q, 100); // -> false
+
+
+
+
+// 17. is binary search tree
+
+    // Write a function, isBinarySearchTree, that takes in the root of a binary tree.The function should return a boolean indicating whether or not the tree satisfies the binary search tree property.
+    // A Binary Search Tree is a binary tree where all values within a node's left subtree are smaller than the node's value and all values in a node's right subtree are greater than or equal to the node's value.
+
+    // test_00:
+        // const a = new Node(12);
+        // const b = new Node(5);
+        // const c = new Node(18);
+        // const d = new Node(3);
+        // const e = new Node(9);
+        // const f = new Node(19);
+
+        // a.left = b;
+        // a.right = c;
+        // b.left = d;
+        // b.right = e;
+        // c.right = f;
+
+        //      12
+        //    /   \
+        //   5     18
+        //  / \     \
+        // 3   9     19
+
+    // isBinarySearchTree(a); // -> true
+
+    // test_01:
+        // const a = new Node(12);
+        // const b = new Node(5);
+        // const c = new Node(18);
+        // const d = new Node(3);
+        // const e = new Node(15);
+        // const f = new Node(19);
+
+        // a.left = b;
+        // a.right = c;
+        // b.left = d;
+        // b.right = e;
+        // c.right = f;
+
+        //      12
+        //    /   \
+        //   5     18
+        //  / \     \
+        // 3   15     19
+
+    // isBinarySearchTree(a); // -> false
+
+    // test_02:
+
+        // const a = new Node(12);
+        // const b = new Node(5);
+        // const c = new Node(19);
+        // const d = new Node(3);
+        // const e = new Node(9);
+        // const f = new Node(19);
+
+        // a.left = b;
+        // a.right = c;
+        // b.left = d;
+        // b.right = e;
+        // c.right = f;
+
+        //      12
+        //    /   \
+        //   5     19
+        //  / \     \
+        // 3   9     19
+
+    // isBinarySearchTree(a); // -> true
+
+    // test_03:
+        // const a = new Node(12);
+        // const b = new Node(5);
+        // const c = new Node(10);
+        // const d = new Node(3);
+        // const e = new Node(9);
+        // const f = new Node(19);
+
+        // a.left = b;
+        // a.right = c;
+        // b.left = d;
+        // b.right = e;
+        // c.right = f;
+
+        //      12
+        //    /   \
+        //   5     10
+        //  / \     \
+        // 3   9     19
+
+    // isBinarySearchTree(a); // -> false
+
+    // test_04:
+
+        // const q = new Node(54);
+        // const r = new Node(42);
+        // const s = new Node(70);
+        // const t = new Node(31);
+        // const u = new Node(50);
+        // const v = new Node(72);
+        // const w = new Node(47);
+        // const x = new Node(90);
+
+        // q.left = r;
+        // q.right = s;
+        // r.left = t;
+        // r.right = u;
+        // s.right = v;
+        // u.left = w;
+        // v.right = x;
+
+        //       54
+        //     /    \
+        //    42     70
+        //   / \      \
+        // 31   50     72
+        //     /        \
+        //    47         90
+
+    // isBinarySearchTree(q); // -> true
