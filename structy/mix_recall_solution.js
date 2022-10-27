@@ -576,3 +576,130 @@ const isSorted = (numbers) => {
     return true;
 };
 
+
+
+
+// 18. post order
+
+// way 1
+// n = number of nodes
+// Time: O(n)
+// Space: O(n)
+const postOrder = (root) => {
+    const values = [];
+    postOrderTraversal(root, values);
+    return values;
+};
+
+const postOrderTraversal = (root, values) => {
+    if (root === null) return;
+    postOrderTraversal(root.left, values);
+    postOrderTraversal(root.right, values);
+    values.push(root.val);
+};
+
+
+
+
+// 19. build tree in post
+
+// way 1 (recursive)
+// n = length of array
+// Time: O(n ^ 2)
+// Space: O(n ^ 2)
+const buildTreeInPost = (inOrder, postOrder) => {
+    if (inOrder.length === 0) return null;
+    const value = postOrder[postOrder.length - 1];
+    const root = new Node(value);
+    const mid = inOrder.indexOf(value);
+    const leftIn = inOrder.slice(0, mid);
+    const rightIn = inOrder.slice(mid + 1);
+    const leftPost = postOrder.slice(0, leftIn.length);
+    const rightPost = postOrder.slice(leftIn.length, -1);
+    root.left = buildTreeInPost(leftIn, leftPost);
+    root.right = buildTreeInPost(rightIn, rightPost);
+    return root;
+};
+
+
+
+
+// 20. build tree in pre
+
+// way 1 (recursive in-place)
+// n = length of array
+// Time: O(n)
+// Space: O(n)
+const buildTreeInPre = (
+    inOrder,
+    preOrder,
+    inOrderStart = 0,
+    inOrderEnd = inOrder.length - 1,
+    preOrderStart = 0,
+    preOrderEnd = preOrder.length - 1) => {
+    if (inOrderEnd < inOrderStart) return null;
+    const value = preOrder[preOrderStart];
+    const root = new Node(value);
+    const mid = inOrder.indexOf(value);
+    const leftSize = mid - inOrderStart;
+    root.left = buildTreeInPre(
+        inOrder,
+        preOrder,
+        inOrderStart,
+        mid - 1,
+        preOrderStart + 1,
+        preOrderStart + leftSize
+    );
+    root.right = buildTreeInPre(
+        inOrder,
+        preOrder,
+        mid + 1,
+        inOrderEnd,
+        preOrderStart + leftSize + 1,
+        preOrderEnd
+    );
+    return root;
+};
+
+// way 2 (recursive with array copies)
+
+// n = length of array
+// Time: O(n ^ 2)
+// Space: O(n ^ 2)
+// const buildTreeInPre = (inOrder, preOrder) => {
+//     if (inOrder.length === 0) return null;
+//     const value = preOrder[0];
+//     const root = new Node(value);
+//     const mid = inOrder.indexOf(value);
+//     const leftInOrder = inOrder.slice(0, mid);
+//     const rightInOrder = inOrder.slice(mid + 1);
+//     const leftPreOrder = preOrder.slice(1, leftInOrder.length + 1);
+//     const rightPreOrder = preOrder.slice(leftInOrder.length + 1);
+//     root.left = buildTreeInPre(leftInOrder, leftPreOrder);
+//     root.right = buildTreeInPre(rightInOrder, rightPreOrder);
+//     return root;
+// };
+
+
+
+// 21. lexical order
+
+// way 1 
+// n = length of shorter string
+// Time: O(n)
+// Space: O(1)
+const lexicalOrder = (word1, word2, alphabet) => {
+    const length = Math.max(word1.length, word2.length);
+    for (let i = 0; i < length; i += 1) {
+        const char1 = word1[i];
+        const char2 = word2[i];
+        const value1 = alphabet.indexOf(char1);
+        const value2 = alphabet.indexOf(char2);
+        if (value1 < value2) {
+            return true;
+        } else if (value1 > value2) {
+            return false;
+        }
+    }
+    return true;
+};

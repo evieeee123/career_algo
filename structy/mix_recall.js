@@ -1340,3 +1340,283 @@
         //    47         90
 
     // isBinarySearchTree(q); // -> true
+
+
+
+
+
+// 18. post order
+
+    // Write a function, postOrder, that takes in the root of a binary tree.The function should return an array containing the post - ordered values of the tree.
+    // Post - order traversal is when nodes are recursively visited in the order: left child, right child, self.
+
+        // test_00:
+            //  // const x = new Node('x');
+            //  // const y = new Node('y');
+            //  // const z = new Node('z');
+            //  //
+            //  // x.left = y;
+            //  // x.right = z;
+            //  //
+             //       x
+             //    /    \
+             //   y      z
+            //  //
+            //  // postOrder(x);
+             // ['y', 'z', 'x']
+
+        //  // test_01:
+            //  // const a = new Node('a');
+            //  // const b = new Node('b');
+            //  // const c = new Node('c');
+            //  // const d = new Node('d');
+            //  // const e = new Node('e');
+            //  // const f = new Node('f');
+            //  // const g = new Node('g');
+            //  //
+            //  // a.left = b;
+            //  // a.right = c;
+            //  // b.left = d;
+            //  // b.right = e;
+            //  // c.left = f;
+            //  // c.right = g;
+            //  //
+             //      a
+             //    /    \
+             //   b      c
+             //  / \    / \
+             // d   e  f   g
+            //  //
+            //  // postOrder(a);
+             // [ 'd', 'e', 'b', 'f', 'g', 'c', 'a' ]
+
+        //  // test_02:
+            //  // const a = new Node('a');
+            //  // const b = new Node('b');
+            //  // const c = new Node('c');
+            //  // const d = new Node('d');
+            //  // const e = new Node('e');
+            //  // const f = new Node('f');
+            //  // const g = new Node('g');
+            //  // const h = new Node('h');
+            //  //
+            //  // a.left = b;
+            //  // a.right = c;
+            //  // b.left = d;
+            //  // b.right = e;
+            //  // c.right = f;
+            //  // e.left = g;
+            //  // e.right = h;
+            //  //
+             //      a
+             //    /    \
+             //   b      c
+             //  / \      \
+             // d   e      f
+             //    / \
+             //    g  h
+            //  //
+            //  // postOrder(a);
+             // [ 'd', 'g', 'h', 'e', 'b', 'f', 'c', 'a' ]
+
+        //  // test_03:
+            //  // const l = new Node('l');
+            //  // const m = new Node('m');
+            //  // const n = new Node('n');
+            //  // const o = new Node('o');
+            //  // const p = new Node('p');
+            //  // const q = new Node('q');
+            //  // const r = new Node('r');
+            //  // const s = new Node('s');
+            //  // const t = new Node('t');
+            //  //
+            //  // l.left = m;
+            //  // l.right = n;
+            //  // n.left = o;
+            //  // n.right = p;
+            //  // o.left = q;
+            //  // o.right = r;
+            //  // p.left = s;
+            //  // p.right = t;
+            //  //
+             //        l
+             //     /     \
+             //    m       n
+             //         /    \
+             //         o     p
+             //        / \   / \
+             //       q   r s   t
+            //  //
+            //  // postOrder(l);
+             // [ 'm', 'q', 'r', 'o', 's', 't', 'p', 'n', 'l' ]
+
+        //  // test_04:
+            //  // postOrder(null);
+             // []
+
+
+
+
+
+// 19. build tree in post
+
+    // Write a function, buildTreeInPost, that takes in an array of in -ordered values and an array of post - ordered values for a binary tree.The function should build a binary tree that has the given in -order and post - order traversal structure.The function should return the root of this tree.
+    // You can assume that the values of inorder and postorder are unique.
+
+    // test_00
+        //  // buildTreeInPost(
+         //     // ['y', 'x', 'z'],
+         //     // ['y', 'z', 'x']
+        //  // );
+         //       x
+         //    /    \
+         //   y      z
+
+    //  // test_01
+        //  // buildTreeInPost(
+         //     // ['d', 'b', 'e', 'a', 'f', 'c', 'g'],
+         //     // ['d', 'e', 'b', 'f', 'g', 'c', 'a']
+        //  // );
+         //      a
+         //    /    \
+         //   b      c
+         //  / \    / \
+         // d   e  f   g
+
+    //  // test_02
+        //  // buildTreeInPost(
+         //     // ['d', 'b', 'g', 'e', 'h', 'a', 'c', 'f'],
+         //     // ['d', 'g', 'h', 'e', 'b', 'f', 'c', 'a']
+        //  // );
+         //      a
+         //    /    \
+         //   b      c
+         //  / \      \
+         // d   e      f
+         //    / \
+         //    g  h
+
+    //  // test_03
+        //  // buildTreeInPost(
+         //     // ['m', 'n'],
+         //     // ['m', 'n']
+        //  // );
+         //       n
+         //     /
+         //    m
+
+    //  // test_04
+        //  // buildTreeInPost(
+         //     // ['n', 'm'],
+         //     // ['m', 'n']
+        //  // );
+         //     n
+         //      \
+         //       m
+
+
+
+
+
+// 20. build tree in pre
+
+    // Write a function, buildTreeInPre, that takes in an array of in -ordered values and an array of pre - ordered values for a binary tree.The function should build a binary tree that has the given in -order and pre - order traversal structure.The function should return the root of this tree.
+    // You can assume that the values of inorder and preorder are unique.
+
+    // test_00
+        // // buildTreeInPre(
+        //     // ['z', 'y', 'x'],
+        //     // ['y', 'z', 'x']
+        // // );
+        //       y
+        //    /    \
+        //   z      x
+
+    // // test_01
+        // // buildTreeInPre(
+        //     // ['y', 'z', 'x'],
+        //     // ['y', 'x', 'z']
+        // // );
+        //       y
+        //        \
+        //         x
+        //        /
+        //       z
+
+    // // test_02
+        // // buildTreeInPre(
+        //     // ['d', 'b', 'g', 'e', 'h', 'a', 'c', 'f'],
+        //     // ['a', 'b', 'd', 'e', 'g', 'h', 'c', 'f']
+        // // );
+        //       a
+        //    /    \
+        //   b      c
+        //  / \      \
+        // d   e      f
+        //    / \
+        //    g  h
+
+    // // test_03
+        // // buildTreeInPre(
+        //     // ['t', 'u', 's', 'q', 'r', 'p'],
+        //     // ['u', 't', 's', 'r', 'q', 'p']
+        // // );
+        //     u
+        //  /    \
+        // t      s
+        //         \
+        //         r
+        //        / \
+        //        q  p
+
+    // // test_04
+        // // buildTreeInPre(
+        //     // ['m', 'l', 'q', 'o', 'r', 'n', 's', 'p', 't'],
+        //     // ['l', 'm', 'n', 'o', 'q', 'r', 'p', 's', 't']
+        // // );
+        //        l
+        //     /     \
+        //    m       n
+        //         /    \
+        //         o     p
+        //        / \   / \
+        //       q   r s   t
+
+
+
+
+
+// 21. lexical order
+
+    // Write a function, lexicalOrder, that takes in 2 words and an alphabet string as an argument.The function should return true if the first word should appear before the second word if lexically - ordered according to the given alphabet order.If the second word should appear first, then return false.
+    // Note that the alphabet string may be any arbitrary string.
+
+    // Intuitively, Lexical Order is like "dictionary" order:
+    // You can assume that all characters are lowercase a - z.
+    // You can assume that the alphabet contains all 26 letters.
+
+    // test_00:
+        // const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        // lexicalOrder("apple", "dock", alphabet); // -> true
+    // test_01:
+        // const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        // lexicalOrder("apple", "ample", alphabet); // -> false
+    // test_02:
+        // const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        // lexicalOrder("app", "application", alphabet); // -> true
+    // test_03:
+        // const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        // lexicalOrder("backs", "backdoor", alphabet); // -> false
+    // test_04:
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // lexicalOrder("zoo", "dinner", alphabet); // -> true
+    // test_05:
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // lexicalOrder("leaper", "leap", alphabet); // -> false
+    // test_06:
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // lexicalOrder("backs", "backdoor", alphabet); // -> true
+    // test_07:
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // lexicalOrder("semper", "semper", alphabet); // -> true
+        
