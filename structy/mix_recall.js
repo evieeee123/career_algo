@@ -1778,7 +1778,7 @@
             // ['a', 'a', 'm', 'c', 'm']
         // ];
         // stringSearch(grid, 'hello'); // -> true
-        
+
     // test_01:
         // const grid = [
             // ['e', 'y', 'h', 'i', 'j'],
@@ -1788,7 +1788,7 @@
             // ['a', 'a', 'm', 'c', 'm']
         // ];
         // stringSearch(grid, 'proxy'); // -> true
-        
+
     // test_02:
         // const grid = [
             // ['e', 'y', 'h', 'i', 'j'],
@@ -1798,7 +1798,7 @@
             // ['a', 'a', 'm', 'c', 'm']
         // ];
         // stringSearch(grid, 'rolling'); // -> false
-        
+
     // test_03:
         // const grid = [
             // ['e', 'y', 'h', 'i', 'j'],
@@ -1808,7 +1808,7 @@
             // ['a', 'a', 'm', 'z', 'm']
         // ];
         // stringSearch(grid, 'zoo'); // -> false
-        
+
     // test_04:
         // const grid = [
             // ['q', 'w', 'h', 'i', 'j'],
@@ -1817,7 +1817,7 @@
             // ['k', 'o', 'm', 'o', 'p']
         // ];
         // stringSearch(grid, 'qwerty'); // -> true
-        
+
     // test_05:
         // const grid = [
             // ['f', 'd', 'i', 'e', 'l', 'u', 'j', 't', 'q', 'v', 'o', 'p'],
@@ -1832,7 +1832,7 @@
             // ['l', 'q', 'w', 'f', 'y', 'g', 'w', 'f', 'a', 'u', 'x', 'q']
         // ];
         // stringSearch(grid, 'paprika'); // -> true
-        
+
     // test_06:
         // const grid = [
             // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
@@ -1846,3 +1846,129 @@
             // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 'x', 'h'],
         // ];
         // stringSearch(grid, 'sssssssh'); // -> false
+
+
+
+
+
+// 26. token replace
+
+    // Write a function, tokenReplace, that takes in an object of tokens and a string.The function should return a new string where tokens are replaced.
+    // Tokens are enclosed in a pair of '$'.You can assume that the input string is properly formatted.Tokens should be replaced from left to right in the string(see test_05).
+
+    // test_00:
+        // const tokens = {
+            // '$LOCATION$': 'park',
+            // '$ANIMAL$': 'dog',
+        // };
+        // tokenReplace('Walk the $ANIMAL$ in the $LOCATION$!', tokens);
+        // -> 'Walk the dog in the park!'
+
+    // test_01:
+        // const tokens = {
+            // '$ADJECTIVE$': 'quick',
+            // '$VERB$': 'hopped',
+            // '$DIRECTION$': 'North'
+        // };
+        // tokenReplace('the $ADJECTIVE$ fox $VERB$ $ADJECTIVE$ly $DIRECTION$ward', tokens);
+        // -> 'the quick fox hopped quickly Northward'
+
+    // test_02:
+        // const tokens = {
+            // '$greeting$': 'hey programmer',
+        // };
+        // tokenReplace('his greeting is always $greeting$.', tokens);
+        // -> 'his greeting is always hey programmer.'
+
+    // test_03:
+        // const tokens = {
+            // '$A$': 'lions',
+            // '$B$': 'tigers',
+            // '$C$': 'bears',
+        // };
+        // tokenReplace('$A$$B$$C$, oh my.', tokens);
+        // -> 'lionstigersbears, oh my.'
+
+    // test_04:
+        // const tokens = {
+            // '$A$': 'lions',
+            // '$B$': 'tigers',
+            // '$C$': 'bears',
+        // };
+        // tokenReplace('$B$', tokens);
+        // -> 'tigers'
+
+    // test_05:
+        // const tokens = {
+            // '$second$': 'beta',
+            // '$first$': 'alpha',
+            // '$third$': 'gamma',
+        // };
+        // tokenReplace('$first$second$third$', tokens);
+        // -> 'alphasecondgamma'
+
+
+
+
+
+// 27. token transform
+
+    // Write a function, tokenTransform, that takes in an object of tokens and a string.In the object, the replacement values for a token may reference other tokens.The function should return a new string where tokens are replaced with their fully evaluated string values.
+    // Tokens are enclosed in a pair of '$'.
+    // You may assume that there are no circular token dependencies.
+
+    // test_00:
+        // const tokens = {
+            // '$LOCATION$': '$ANIMAL$ park',
+            // '$ANIMAL$': 'dog',
+        // };
+        // tokenTransform('Walk the $ANIMAL$ in the $LOCATION$!', tokens);
+        // -> 'Walk the dog in the dog park!'
+        
+    // test_01:
+        // const tokens = {
+            // '$ADJECTIVE_1$': "quick",
+            // '$ADJECTIVE_2$': "eager",
+            // '$ADVERBS$': "$ADJECTIVE_1$ly and $ADJECTIVE_2$ly",
+            // '$VERB$': "hopped $DIRECTION$",
+            // '$DIRECTION$': "North",
+        // };
+        // tokenTransform("the $ADJECTIVE_1$ fox $ADVERBS$ $VERB$ward", tokens);
+        // -> 'the quick fox quickly and eagerly hopped Northward'
+        
+    // test_02:
+        // const tokens = {
+            // '$B$': "epicly $C$",
+            // '$A$': "pretty $B$ problem $D$",
+            // '$D$': "we have",
+            // '$C$': "clever",
+        // };
+        // tokenTransform("What a $A$ here!", tokens);
+        // -> 'What a pretty epicly clever problem we have here!'
+        
+    // test_03:
+        // const tokens = {
+            // '$1$': "a$2$",
+            // '$2$': "b$3$",
+            // '$3$': "c$4$",
+            // '$4$': "d$5$",
+            // '$5$': "e$6$",
+            // '$6$': "f!",
+        // };
+        // tokenTransform("$1$ $1$ $1$ $1$ $1$ $1$ $4$ $4$", tokens);
+        // -> 'abcdef! abcdef! abcdef! abcdef! abcdef! abcdef! def! def!'
+        
+    // test_04:
+        // const tokens = {
+            // '$0$': "$1$$1$$1$$1$$1$$1$$1$$1$$1$$1$$1$$1$",
+            // '$1$': "$2$$2$$2$$2$$2$$2$$2$$2$$2$",
+            // '$2$': "$3$$3$$3$$3$$3$$3$$3$",
+            // '$3$': "$4$$4$$4$$4$$4$$4$",
+            // '$4$': "$5$$5$$5$$5$$5$",
+            // '$5$': "$6$$6$$6$$6$",
+            // '$6$': "$7$$7$$7$",
+            // '$7$': "$8$$8$",
+            // '$8$': "",
+        // };
+        // tokenTransform("z$0$z$0$z$0$z$0$z$0$z$0$z", tokens);
+        // -> 'zzzzzzz'

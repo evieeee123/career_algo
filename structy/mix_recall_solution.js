@@ -924,3 +924,96 @@ const dfs = (grid, s, row, col) => {
     grid[row][col] = char;
     return result;
 };
+
+
+
+
+
+// 26. token replace
+
+// way 1 (using two pointers)
+// n = length of string
+// Time: O(n)
+// Space: O(n)
+const tokenReplace = (s, tokens) => {
+    let output = [];
+
+    let i = 0;
+    let j = 1;
+    while (i < s.length) {
+        if (s[i] !== '$') {
+            output.push(s[i]);
+            i += 1;
+            j = i + 1;
+        } else if (s[j] !== '$') {
+            j += 1;
+        } else {
+            const key = s.slice(i, j + 1);
+            output.push(tokens[key]);
+            i = j + 1;
+            j = i + 1;
+        }
+    }
+
+    return output.join('');
+};
+
+// way 2 (using string to store: slower than the arr)
+
+// const tokenReplace = (s, tokens) => {
+//     let i = 0;
+//     let j = 1;
+//     let output = ""
+//     while (i < s.length) {
+//         if (s[i] !== "$") {
+//             output += s[i]
+//             i++;
+//             j = i + 1;
+//         } else if (s[j] !== "$") {
+//             j++;
+//         } else {
+//             const key = s.slice(i, j + 1);
+//             output += tokens[key];
+//             i = j + 1;
+//             j = i + 1;
+//         }
+//     }
+//     return output
+// };
+
+
+
+
+
+// 27. token transform
+
+// way 1 (using two pointers + recursion)
+// n = length of longest string of value
+// m = # of unique tokens
+// Time: ~O(n ^ m)
+// Space: ~O(n ^ m)
+const tokenTransform = (s, tokens) => {
+    let output = [];
+
+    let i = 0;
+    let j = 1;
+    while (i < s.length) {
+        if (s[i] !== '$') {
+            output.push(s[i]);
+            i += 1;
+            j = i + 1;
+        } else if (s[j] !== '$') {
+            j += 1;
+        } else {
+            const key = s.slice(i, j + 1);
+            const value = tokens[key];
+            const evaluatedValue = tokenTransform(value, tokens);
+            tokens[key] = evaluatedValue;
+            output.push(evaluatedValue);
+            i = j + 1;
+            j = i + 1;
+        }
+    }
+
+    return output.join('');
+};
