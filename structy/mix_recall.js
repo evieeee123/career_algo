@@ -1619,4 +1619,230 @@
     // test_07:
         // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
         // lexicalOrder("semper", "semper", alphabet); // -> true
+
+
+
+
+
+
+// 22. detect dictionary
+
+    // Write a function, detectDictionary, that takes in a dictionary of words and an alphabet string.The function should return a boolean indicating whether or not all words of the dictionary are lexically - ordered according to the alphabet.
+    // You can assume that all characters are lowercase a - z.
+    // You can assume that the alphabet contains all 26 letters.
+
+    // test_00:
+        // const dictionary = ["zoo", "tick", "tack", "door"];
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // detectDictionary(dictionary, alphabet); // -> true
+    // test_01:
+        // const dictionary = ["zoo", "tack", "tick", "door"];
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // detectDictionary(dictionary, alphabet); // -> false
+    // test_02:
+        // const dictionary = ["zoos", "zoo", "tick", "tack", "door"];
+        // const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+        // detectDictionary(dictionary, alphabet); // -> false
+    // test_03:
+        // const dictionary = ["miles", "milestone", "proper", "process", "goal"];
+        // const alphabet = "mnoijpqrshkltabcdefguvwzxy";
+        // detectDictionary(dictionary, alphabet); // -> true
+    // test_04:
+        // const dictionary = ["miles", "milestone", "pint", "proper", "process", "goal"];
+        // const alphabet = "mnoijpqrshkltabcdefguvwzxy";
+        // detectDictionary(dictionary, alphabet); // -> true
+    // test_05:
+        // const dictionary = ["miles", "milestone", "pint", "proper", "process", "goal", "apple"];
+        // const alphabet = "mnoijpqrshkltabcdefguvwzxy";
+        // detectDictionary(dictionary, alphabet); // -> false
+
+
+
+
+
+// 23. topological order
+
+    // Write a function, topologicalOrder, that takes in an object representing the adjacency list for a directed - acyclic graph.The function should return an array containing the topological - order of the graph.
+    // The topological ordering of a graph is a sequence where "parent nodes" appear before their "children" within the sequence.
+
+    // test_00:
+        // topologicalOrder({
+            // a: ["f"],
+            // b: ["d"],
+            // c: ["a", "f"],
+            // d: ["e"],
+            // e: [],
+            // f: ["b", "e"],
+        // }); // -> ['c', 'a', 'f', 'b', 'd', 'e']
+
+    // test_01:
+        // topologicalOrder({
+            // h: ["l", "m"],
+            // i: ["k"],
+            // j: ["k", "i"],
+            // k: ["h", "m"],
+            // l: ["m"],
+            // m: [],
+        // }); // -> ['j', 'i', 'k', 'h', 'l', 'm']
+
+    // test_02:
+        // topologicalOrder({
+            // q: [],
+            // r: ["q"],
+            // s: ["r"],
+            // t: ["s"],
+        // }); // -> ['t', 's', 'r', 'q']
+
+    // test_03:
+        // topologicalOrder({
+            // v: ["z", "w"],
+            // w: [],
+            // x: ["w", "v", "z"],
+            // y: ["x"],
+            // z: ["w"],
+        // }); // -> ['y', 'x', 'v', 'z', 'w']
+
+
+
+
+
+// 24. safe cracking
+
+    // Oh - no! You forgot the number combination that unlocks your safe.Luckily, you knew that you'd be forgetful so you previously wrote down a bunch of hints that can be used to determine the correct combination. Each hint is a pair of numbers 'x, y' that indicates you must enter digit 'x' before 'y' (but not necessarily immediately before y).
+    // The keypad on the safe has digits 0 - 9. You can assume that the hints will generate exactly one working combination and that a digit can occur zero or one time in the answer.
+    // Write a function, safeCracking, that takes in an array of hints as an argument and determines the combination that will unlock the safe.The function should return a string representing the combination.
+
+    // test_00:
+        // safeCracking([
+            // [7, 1],
+            // [1, 8],
+            // [7, 8],
+        // ]); // -> '718'
+
+    // test_01:
+        // safeCracking([
+            // [3, 1],
+            // [4, 7],
+            // [5, 9],
+            // [4, 3],
+            // [7, 3],
+            // [3, 5],
+            // [9, 1],
+        // ]); // -> '473591'
+
+    // test_02:
+        // safeCracking([
+            // [2, 5],
+            // [8, 6],
+            // [0, 6],
+            // [6, 2],
+            // [0, 8],
+            // [2, 3],
+            // [3, 5],
+            // [6, 5],
+        // ]); // -> '086235'
+
+    // test_03:
+        // safeCracking([
+            // [0, 1],
+            // [6, 0],
+            // [1, 8],
+        // ]); // -> '6018'
+
+    // test_04:
+        // safeCracking([
+            // [8, 9],
+            // [4, 2],
+            // [8, 2],
+            // [3, 8],
+            // [2, 9],
+            // [4, 9],
+            // [8, 4],
+        // ]); // -> '38429'
+
+
+
+
+
+// 25. string search
+
+    // Write a function, stringSearch, that takes in a grid of letters and a string as arguments.The function should return a boolean indicating whether or not the string can be found in the grid as a path by connecting horizontal or vertical positions.The path can begin at any position, but you cannot reuse a position more than once in the path.
+    // You can assume that all letters are lowercase and alphabetic.
+
+    // test_00:
+        // const grid = [
+            // ['e', 'y', 'h', 'i', 'j'],
+            // ['q', 'x', 'e', 'r', 'p'],
+            // ['r', 'o', 'l', 'l', 'n'],
+            // ['p', 'r', 'x', 'o', 'h'],
+            // ['a', 'a', 'm', 'c', 'm']
+        // ];
+        // stringSearch(grid, 'hello'); // -> true
         
+    // test_01:
+        // const grid = [
+            // ['e', 'y', 'h', 'i', 'j'],
+            // ['q', 'x', 'e', 'r', 'p'],
+            // ['r', 'o', 'l', 'l', 'n'],
+            // ['p', 'r', 'x', 'o', 'h'],
+            // ['a', 'a', 'm', 'c', 'm']
+        // ];
+        // stringSearch(grid, 'proxy'); // -> true
+        
+    // test_02:
+        // const grid = [
+            // ['e', 'y', 'h', 'i', 'j'],
+            // ['q', 'x', 'e', 'r', 'p'],
+            // ['r', 'o', 'l', 'l', 'n'],
+            // ['p', 'r', 'x', 'o', 'h'],
+            // ['a', 'a', 'm', 'c', 'm']
+        // ];
+        // stringSearch(grid, 'rolling'); // -> false
+        
+    // test_03:
+        // const grid = [
+            // ['e', 'y', 'h', 'i', 'j'],
+            // ['q', 'x', 'e', 'r', 'p'],
+            // ['r', 'o', 'l', 'l', 'n'],
+            // ['p', 'r', 'x', 'o', 'h'],
+            // ['a', 'a', 'm', 'z', 'm']
+        // ];
+        // stringSearch(grid, 'zoo'); // -> false
+        
+    // test_04:
+        // const grid = [
+            // ['q', 'w', 'h', 'i', 'j'],
+            // ['q', 'e', 'r', 'o', 'p'],
+            // ['h', 'y', 't', 'x', 'z'],
+            // ['k', 'o', 'm', 'o', 'p']
+        // ];
+        // stringSearch(grid, 'qwerty'); // -> true
+        
+    // test_05:
+        // const grid = [
+            // ['f', 'd', 'i', 'e', 'l', 'u', 'j', 't', 'q', 'v', 'o', 'p'],
+            // ['o', 'p', 'b', 'e', 'm', 'w', 'm', 'l', 'h', 'j', 's', 'v'],
+            // ['g', 'b', 's', 'm', 'i', 'w', 'w', 'h', 'l', 'm', 'l', 'n'],
+            // ['a', 'l', 's', 'k', 'p', 'c', 't', 'u', 'v', 'b', 'c', 'm'],
+            // ['m', 't', 'c', 'k', 'e', 'n', 'r', 'b', 'a', 'z', 'l', 'c'],
+            // ['q', 'm', 'a', 'p', 'a', 'p', 'i', 'i', 'u', 't', 'z', 'z'],
+            // ['d', 'u', 'z', 'o', 'e', 'r', 'a', 't', 't', 'c', 'q', 'k'],
+            // ['f', 'u', 'z', 'g', 'c', 'i', 'k', 'v', 'o', 'f', 's', 'w'],
+            // ['p', 'h', 'u', 'i', 'k', 'c', 'v', 'v', 'h', 'q', 'v', 'i'],
+            // ['l', 'q', 'w', 'f', 'y', 'g', 'w', 'f', 'a', 'u', 'x', 'q']
+        // ];
+        // stringSearch(grid, 'paprika'); // -> true
+        
+    // test_06:
+        // const grid = [
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 'x', 'x'],
+            // ['s', 's', 's', 's', 's', 's', 's', 's', 's', 'x', 'h'],
+        // ];
+        // stringSearch(grid, 'sssssssh'); // -> false

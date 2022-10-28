@@ -703,3 +703,224 @@ const lexicalOrder = (word1, word2, alphabet) => {
     }
     return true;
 };
+
+
+
+
+// 22. detect dictionary
+
+// way 1 
+// n = # of words in dictionary
+// k = # length of longest word
+// Time: O(nk)
+// Space: O(1)
+const detectDictionary = (dictionary, alphabet) => {
+    for (let i = 0; i < dictionary.length - 1; i += 1) {
+        const current = dictionary[i];
+        const next = dictionary[i + 1];
+        if (!lexicalOrder1(current, next, alphabet)) return false;
+    }
+
+    return true;
+};
+
+const lexicalOrder1 = (word1, word2, alphabet) => {
+    const length = Math.max(word1.length, word2.length);
+    for (let i = 0; i < length; i += 1) {
+        const char1 = word1[i];
+        const char2 = word2[i];
+        const value1 = char1 === undefined ? -Infinity : alphabet.indexOf(char1);
+        const value2 = char2 === undefined ? -Infinity : alphabet.indexOf(char2);
+        if (value1 < value2) {
+            return true;
+        } else if (value1 > value2) {
+            return false;
+        }
+    }
+    return true;
+};
+
+
+
+
+// 23. topological order
+
+// way 1 (topological order)
+// e = number of edges
+// n = number of nodes
+// Time: O(e + n)
+// Space: O(n)
+const topologicalOrder = (graph) => {
+    const numParents = {};
+    for (let node in graph) {
+        numParents[node] = 0;
+    }
+    for (let node in graph) {
+        for (let child of graph[node]) {
+            numParents[child] += 1;
+        }
+    }
+
+    const ready = [];
+    for (let node in numParents) {
+        if (numParents[node] === 0) {
+            ready.push(node);
+        }
+    }
+
+    const order = [];
+    while (ready.length > 0) {
+        const node = ready.pop();
+        order.push(node);
+        for (let child of graph[node]) {
+            numParents[child] -= 1;
+            if (numParents[child] === 0) {
+                ready.push(child);
+            }
+        }
+    }
+    return order;
+};
+
+
+
+
+// 24. safe cracking
+
+// way 1 (graph topological order)
+// e = number of hints
+// Time: O(e)
+// Space: O(e)
+const safeCracking = (hints) => {
+    const graph = buildGraph3(hints);
+    return topologicalOrder2(graph);
+};
+
+const buildGraph3 = (edges) => {
+    const graph = {};
+
+    for (let edge of edges) {
+        const [a, b] = edge;
+        if (!(a in graph)) graph[a] = [];
+        if (!(b in graph)) graph[b] = [];
+
+        graph[a].push(b);
+    }
+
+    return graph;
+};
+
+const topologicalOrder2 = (graph) => {
+    const numParents = {};
+    for (let node in graph) {
+        numParents[node] = 0;
+    }
+
+    for (let node in graph) {
+        for (let child of graph[node]) {
+            numParents[child] += 1;
+        }
+    }
+
+    const ready = [];
+    for (let node in numParents) {
+        if (numParents[node] === 0) ready.push(node);
+    }
+
+    let order = '';
+    while (ready.length > 0) {
+        const node = ready.pop();
+        order += node;
+        for (let child of graph[node]) {
+            numParents[child] -= 1;
+            if (numParents[child] === 0) ready.push(child)
+        }
+    }
+
+    return order;
+};
+
+// way 2 (same)
+
+// const safeCracking = (hints) => {
+//     let graph = buildGraph(hints);
+//     let numParent = {};
+//     for (let node in graph) {
+//         numParent[node] = 0;
+//     }
+
+//     for (let node in graph) {
+//         for (let child of graph[node]) {
+//             numParent[child]++;
+//         }
+//     }
+
+//     let ready = [];
+//     for (let node in numParent) {
+//         if (numParent[node] === 0) ready.push(node)
+//     }
+
+//     let order = '';
+//     while (ready.length > 0) {
+//         const node = ready.pop();
+//         order += node;
+//         for (let child of graph[node]) {
+//             numParent[child]--;
+//             if (numParent[child] === 0) ready.push(child)
+//         }
+//     }
+
+//     return order
+// };
+
+// const buildGraph = (hints) => {
+//     let graph = {};
+//     for (let hint of hints) {
+//         const [a, b] = hint;
+//         if (!(a in graph)) graph[a] = [];
+//         if (!(b in graph)) graph[b] = [];
+//         graph[a].push(b);
+//     }
+//     return graph
+// }
+
+
+
+
+// 25. string search
+
+// way 1 (depth first search)
+// r = # grid rows
+// c = # grid columns
+// Time: O(3 ^ (r * c))
+// Space: O(r * c)
+const stringSearch = (grid, s) => {
+    for (let r = 0; r < grid.length; r += 1) {
+        for (let c = 0; c < grid[0].length; c += 1) {
+            if (dfs(grid, s, r, c)) return true;
+        }
+    }
+    return false;
+};
+
+const dfs = (grid, s, row, col) => {
+    const rowInbounds = 0 <= row && row < grid.length;
+    const colInbounds = 0 <= col && col < grid[0].length;
+    if (s === '') return true;
+
+    if (!rowInbounds || !colInbounds) return false;
+
+    const char = grid[row][col];
+    if (char !== s[0]) return false;
+
+    const suffix = s.slice(1);
+    grid[row][col] = '*';
+
+    const result = dfs(grid, suffix, row + 1, col) ||
+        dfs(grid, suffix, row - 1, col) ||
+        dfs(grid, suffix, row, col + 1) ||
+        dfs(grid, suffix, row, col - 1);
+
+    grid[row][col] = char;
+    return result;
+};
