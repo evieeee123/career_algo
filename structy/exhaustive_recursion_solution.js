@@ -145,3 +145,72 @@ const getOptions = (s) => {
 //         }
 //     }
 // }
+
+
+
+
+
+// substituting synonyms
+
+// way 1 (recursive)
+// n = number of words in sentence
+// m = max number of synonyms for a word
+// Time: ~O(m ^ n)
+// Space: ~O(m ^ n)
+const substituteSynonyms = (sentence, synonyms) => {
+    const words = sentence.split(' ');
+    const arrays = generate(words, synonyms);
+    return arrays.map(subarray => subarray.join(' '));
+};
+
+const generate = (words, synonyms) => {
+    if (words.length === 0) return [[]];
+
+    const firstWord = words[0];
+    const remainingWords = words.slice(1);
+    if (firstWord in synonyms) {
+        const result = [];
+        const subarrays = generate(remainingWords, synonyms);
+        for (let synonym of synonyms[firstWord]) {
+            result.push(...subarrays.map(subarray => [synonym, ...subarray]));
+        }
+        return result;
+    } else {
+        const subarrays = generate(remainingWords, synonyms);
+        return subarrays.map(subarray => [firstWord, ...subarray]);
+    };
+};
+
+// way 2 (same)
+
+// const substituteSynonyms = (sentence, synonyms) => {
+//     let words = sentence.split(" ");
+//     const subarrays = generate(words, synonyms);
+//     const res = [];
+//     for (let subarray of subarrays) {
+//         res.push(subarray.join(" "))
+//     }
+//     return res;
+// };
+
+// const generate = (words, synonyms) => {
+//     if (words.length === 0) return [[]];
+//     let firstWord = words[0];
+//     let reminding = words.slice(1);
+//     const subarrays = generate(reminding, synonyms);
+//     if (firstWord in synonyms) {
+//         const res = [];
+//         for (let synonym of synonyms[firstWord]) {
+//             for (let subarray of subarrays) {
+//                 res.push([synonym, ...subarray])
+//             }
+//         }
+//         return res;
+//     } else {
+//         const res = [];
+//         for (let subarray of subarrays) {
+//             res.push([firstWord, ...subarray])
+//         }
+//         return res;
+//     }
+// }
