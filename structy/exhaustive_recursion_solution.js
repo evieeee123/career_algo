@@ -77,3 +77,71 @@ const createCombinations = (items, k) => {
     return [...combosWithFirst, ...combosWithoutFirst];
 };
 
+
+
+
+
+// parenthetical possibilities
+
+// way 1 (recursive)
+// n = length of the string, m = length of largest parenthetical group
+// Time: ~O(m ^ n)
+// Space: ~O(m ^ n)
+const parentheticalPossibilities = (s) => {
+    if (s === "") return [""];
+
+    const { remaining, chars } = getOptions(s);
+    const suffixes = parentheticalPossibilities(remaining);
+    const possibilities = [];
+
+    for (let char of chars) {
+        for (let suffix of suffixes) {
+            possibilities.push(char + suffix);
+        }
+    }
+
+    return possibilities;
+};
+
+const getOptions = (s) => {
+    if (s[0] === "(") {
+        const endIdx = s.indexOf(")");
+        const remaining = s.slice(endIdx + 1);
+        const chars = s.slice(1, endIdx).split("");
+        return { remaining, chars };
+    } else {
+        const remaining = s.slice(1);
+        const chars = [s[0]];
+        return { remaining, chars };
+    }
+};
+
+// way 2 (same)
+
+// const parentheticalPossibilities = (s) => {
+//     if (s.length === 0) return [""];
+
+//     const { choices, reminder } = getOptions(s);
+//     let res = [];
+//     for (let choice of choices) {
+//         const reminders = parentheticalPossibilities(reminder);
+//         for (let sub of reminders) {
+//             res.push(choice + sub)
+//         }
+//     }
+//     return res;
+// };
+
+// const getOptions = (s) => {
+//     if (s[0] === "(") {
+//         const end = s.indexOf(")")
+//         const choices = s.slice(1, end);
+//         const reminder = s.slice(end + 1);
+//         return { choices, reminder }
+//     } else {
+//         return {
+//             choices: s[0],
+//             reminder: s.slice(1)
+//         }
+//     }
+// }
